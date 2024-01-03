@@ -1,12 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import Logo from '../Logo';
 
 export default function SignIn() {
+  const navigate = useNavigate()
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <div className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
-            <Logo/>
+            <Logo />
           </div>
 
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
@@ -62,6 +64,14 @@ export default function SignIn() {
                 className="flex w-full justify-center rounded-md bg-amber-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500"
               >
                 Sign in
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={() => navigate('/map')}
+                className="flex w-full justify-center rounded-md bg-amber-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500"
+              >
+                Map
               </button>
             </div>
           </form>

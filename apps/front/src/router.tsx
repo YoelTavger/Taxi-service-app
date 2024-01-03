@@ -3,6 +3,8 @@ import Users from './components/users/Users';
 import Dashboard from './components/Dashboard';
 import SignIn from './components/LoginAndRegistration/SignIn';
 import SignUp from './components/LoginAndRegistration/SignUp';
+import Map from './components/Map';
+
 
 export default function RouterApp() {
   const router = createBrowserRouter([
@@ -25,6 +27,10 @@ export default function RouterApp() {
         {
           path: '/signup',
           element: <SignUp />,
+        },
+        {
+          path: '/map',
+          element: <Map />,
         },
       ],
     },
