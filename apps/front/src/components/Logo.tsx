@@ -1,7 +1,5 @@
-import { faBiohazard } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTired } from '@fortawesome/free-solid-svg-icons';
-
+import { faDharmachakra } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 export default function Logo() {
@@ -13,13 +11,13 @@ export default function Logo() {
   return (
     <>
       {flag ? (
-        <FontAwesomeIcon icon={faBiohazard} spin size="xl" onClick={handleClick} />
+        <FontAwesomeIcon icon={faDharmachakra} spin size="2x" onClick={handleClick} />
       ) : (
         <FontAwesomeIcon
-          icon={faBiohazard}
+          icon={faDharmachakra}
           spin
           spinReverse
-          size="xl"
+          size="2x"
           onClick={handleClick}
         />
       )}

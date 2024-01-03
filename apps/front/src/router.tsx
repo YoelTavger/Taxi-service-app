@@ -1,10 +1,8 @@
-import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Header from './components/Header';
 import Users from './components/users/Users';
-import Login from './components/LoginAndRegistration/Login';
 import Dashboard from './components/Dashboard';
-import BackGroundImage from './components/BackGroundImage';
+import SignIn from './components/LoginAndRegistration/SignIn';
+import SignUp from './components/LoginAndRegistration/SignUp';
 
 export default function RouterApp() {
   const router = createBrowserRouter([
@@ -21,8 +19,12 @@ export default function RouterApp() {
           element: <Users />,
         },
         {
-          path: '/login',
-          element: <Login />,
+          path: '/signin',
+          element: <SignIn />,
+        },
+        {
+          path: '/signup',
+          element: <SignUp />,
         },
       ],
     },
