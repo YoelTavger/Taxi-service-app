@@ -1,44 +1,13 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { fromLonLat } from 'ol/proj';
 import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import './map.css';
+import { coords } from './dataCoords';
 
-import { RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle } from 'rlayers';
-import locationIcon from './location.png';
-
-const coords = [
-  { name: 'beitHamikdash', coordinates: [35.2354, 31.7767] },
-  { name: 'seaOfGalilee', coordinates: [35.5575, 32.8064] },
-  { name: 'Herzliya', coordinates: [34.8364, 32.1656] },
-  { name: 'Masada', coordinates: [35.3536, 31.3155] },
-  { name: 'DeadSea', coordinates: [35.4933, 31.4969] },
-  { name: 'TelAviv', coordinates: [34.7818, 32.0853] },
-  { name: 'WesternWall', coordinates: [35.2344, 31.7767] },
-  { name: 'Haifa', coordinates: [34.9896, 32.7940] },
-  { name: 'MountCarmel', coordinates: [35.1043, 32.7006] },
-  { name: 'Caesarea', coordinates: [34.9044, 32.4985] },
-  { name: 'Acre', coordinates: [35.0827, 32.9273] },
-  { name: 'Jericho', coordinates: [35.4444, 31.8593] },
-  { name: 'Tiberias', coordinates: [35.5285, 32.7955] },
-  { name: 'Jaffa', coordinates: [34.7553, 32.0549] },
-  { name: 'Safed', coordinates: [35.4945, 32.9707] },
-  { name: 'RoshHanikra', coordinates: [35.0986, 33.0902] },
-  { name: 'BeitShean', coordinates: [35.5007, 32.5006] },
-  { name: 'MountTabor', coordinates: [35.4072, 32.7037] },
-  { name: 'ZikhronYaakov', coordinates: [34.9533, 32.5751] },
-  { name: 'HulaValley', coordinates: [35.6054, 33.0942] },
-  { name: 'Nahariya', coordinates: [35.0943, 33.0059] },
-  { name: 'BetShearim', coordinates: [35.1997, 32.6633] },
-  { name: 'MountHermon', coordinates: [35.8322, 33.2827] },
-  { name: 'YarkonPark', coordinates: [34.7857, 32.0847] },
-  { name: 'YadVashem', coordinates: [35.2042, 31.7774] },
-  { name: 'BenGurionAirport', coordinates: [34.8854, 32.0055] },
-  { name: 'RamatGanSafari', coordinates: [34.8148, 32.0658] },
-  { name: 'EinGedi', coordinates: [35.3882, 31.4461] },
-  { name: 'YadMordechai', coordinates: [34.5567, 31.5857] },
-  { name: 'AyalonInstitute', coordinates: [34.8259, 32.0450] },
-]
+import { RMap, ROSM, RLayerVector, RFeature, RStyle } from 'rlayers';
+import locationIcon from '../images/Taxi-icon.png';
+import { UserLocation } from './UserLocation';
 
 const Map = (): JSX.Element => {
   const getCenterCoords = (points: Coordinate[]): Coordinate => {
@@ -79,27 +48,52 @@ const Map = (): JSX.Element => {
   const centerCoords = useMemo(() => getCenterCoords(points), [points]);
   const zoom = useMemo(() => getZoom(points), [points]);
 
+  const [userLocation, setUserLocation] = useState<Coordinate | null>(null);
+
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserLocation([position.coords.longitude, position.coords.latitude]);
+      });
+    }
+  }, []);
+
   return (
-    <RMap
-      className="example-map"
-      initial={{ center: fromLonLat(centerCoords), zoom: zoom }}
-    >
-      <ROSM />
-      <>
-        {coords.map((coord) => (
-          <RLayerVector key={coord.name} zIndex={10000}>
-            <RStyle.RStyle>
-              <RStyle.RIcon src={locationIcon} scale={0.1} anchor={[0.5, 0.8]} />
-            </RStyle.RStyle>
-            <RFeature geometry={new Point(fromLonLat(coord.coordinates))}>
-              {/* <ROverlay className="example-overlay">
-                <div className="text-amber-500">{coord.name}</div>
-              </ROverlay> */}
-            </RFeature>
-          </RLayerVector>
-        ))}
-      </>
-    </RMap>
+    <>
+      <div>
+        <RMap
+          className="w-[60vh] h-[60vh] border-4 border-solid border-amber-500 rounded-[5%] overflow-hidden shadow-[0_0_10px]"
+          initial={{ center: fromLonLat(centerCoords), zoom: zoom }}
+        >
+          <ROSM attributions="Yoel Tavger" opacity={0.9} />
+
+          {userLocation && <UserLocation userCoordinates={userLocation} />}
+          {coords.map((coord) => (
+            <RLayerVector key={coord.name}>
+              <RStyle.RStyle>
+                <RStyle.RIcon
+                  src={locationIcon}
+                  scale={0.16}
+                  anchor={[0.5, 0.8]}
+                />
+              </RStyle.RStyle>
+              <RFeature
+                geometry={new Point(fromLonLat(coord.coordinates))}
+              ></RFeature>
+            </RLayerVector>
+          ))}
+        </RMap>
+
+        <button
+          style={{
+            boxShadow: '0  0 10px ',
+          }}
+          className="flex w-full justify-center rounded-md bg-amber-500 mt-10 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500"
+        >
+          Order a taxi
+        </button>
+      </div>
+    </>
   );
 };
 
