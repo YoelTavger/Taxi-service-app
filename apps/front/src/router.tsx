@@ -4,7 +4,6 @@ import Dashboard from './components/Dashboard';
 import SignIn from './components/LoginAndRegistration/SignIn';
 import SignUp from './components/LoginAndRegistration/SignUp';
 import Map from './components/Map';
-import Logo from './components/Logo';
 
 
 export default function RouterApp() {
