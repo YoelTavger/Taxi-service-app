@@ -1,6 +1,7 @@
 import cors from 'cors';
 import { createHTTPServer } from '@trpc/server/adapters/standalone';
 import { appRouter } from './routers/router';
+import { sequelizeConnection } from './db/sequelizeConnection';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -16,6 +17,7 @@ const startServer = async () => {
   try {
     server.listen(port);
     console.log(`[ ready ] http://${host}:${port}`);
+    sequelizeConnection()
   } catch (error) {
     console.error('Error during server setup:', error);
     process.exit(1);

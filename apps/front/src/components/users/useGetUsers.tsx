@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { tRPC } from "../../tRPC";
+import { tRPC } from "../../tRPCclient";
 
 const t = tRPC;
 
@@ -11,7 +11,7 @@ const useGetUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await t.getUsersService.query();
+        const userData = await t.getUsers.query();
         setUsers(userData);
       } catch (error) {
         setError(`Error fetching user data: ${error.message}`);

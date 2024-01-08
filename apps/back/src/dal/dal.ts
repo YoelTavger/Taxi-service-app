@@ -1,6 +1,6 @@
+import { UUIDV4 } from 'sequelize';
 import { User } from '../db/models/userModel';
 import { sequelizeConnect } from '../db/sequelizeConnection';
-import { UserType } from '../types';
 
 export const getUsersDal = async () => {
   try {
@@ -14,52 +14,22 @@ export const getUsersDal = async () => {
   }
 };
 
-export const signUpUserDal = async (input: UserType) => {
+export const signUpUserDal = async ( user_name, password, email, phone_number) => {
   try {
-    const { name, email, password } = input;
-    const user = await User.create({ name, email, password });
-    return Boolean(user);
+    await User.sync();
+    const newUser = await User.create({
+      user_id: UUIDV4(),
+      user_name: user_name,
+      password: password,
+      email: email,
+      phone_number: phone_number,
+    },
+    {
+      fields: ['user_id', 'user_name', 'password', 'email', 'phone_number'],
+    });
+    return newUser;
   } catch (error) {
     console.error('Error signing up:', error);
-    throw error;
   }
-}
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const signUpUserDal = async (userData: UserType) => {
-//   try {
-//     const { name, email, password } = userData;
-//     const user = await User.create({ name, email, password });
-//     return user;
-//   } catch (error) {
-//     console.error('Error signing up:', error);
-//     throw error;
-//   }
-// };
-
-// export const signInUserDal = async (userData: UserType) => {
-//   try {
-//     const { email, password } = userData;
-//     const user = await User.findOne({ where: { email, password } });
-//     if (!user) {
-//       throw new Error('User not found or incorrect password');
-//     }
-//     return user;
-//   } catch (error) {
-//     console.error('Error signing in:', error);
-//     throw error;
-//   }
-// };

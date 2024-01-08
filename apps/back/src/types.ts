@@ -1,7 +1,8 @@
 export interface UserType {
-    id: number;
-    name: string;
+    user_id?: number;
+    user_name: string;
     password: string;
     email: string;
-    phonenumber: string;
+    phone_number: string;
+    created_at?: Date;
 }

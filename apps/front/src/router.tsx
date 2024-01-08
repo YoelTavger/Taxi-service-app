@@ -2,8 +2,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Users from './components/users/Users';
 import Dashboard from './components/Dashboard';
 import SignIn from './components/LoginAndRegistration/SignIn';
-import SignUp from './components/LoginAndRegistration/SignUp';
+import SignUp from './components/LoginAndRegistration/SignUp/SignUp';
 import Map from './components/Map';
+import SignUpDemo from './components/SignUpDemo';
 
 
 export default function RouterApp() {
@@ -26,7 +27,7 @@ export default function RouterApp() {
         },
         {
           path: '/signup',
-          element: <SignUp />,
+          element: <SignUpDemo />,
         },
         {
           path: '/map',
