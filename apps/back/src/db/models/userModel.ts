@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 export const User = sequelizeConnect.define('User', {
   user_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     primaryKey: true,
     autoIncrement: true,
   },

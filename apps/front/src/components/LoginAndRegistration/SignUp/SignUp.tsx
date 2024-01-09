@@ -1,11 +1,19 @@
-import Logo from '../../Logo';
+import { useAtom } from 'jotai';
 import useSignUp from './useSignUp';
+import {
+  errorAtom,
+  loadingAtom,
+  newUserAtom,
+} from './jotai';
+import Logo from '../../Logo';
 
-export default function Sign() {
+const SignUp = () => {
   const { handleSignUp } = useSignUp();
-}
-return (
-  <>
+  const [newUser, setNewUser] = useAtom(newUserAtom);
+  const [loading] = useAtom(loadingAtom);
+  const [error] = useAtom(errorAtom);
+  return (
+    <>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <div className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
@@ -18,7 +26,7 @@ return (
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form onSubmit={handleSignUp} className="space-y-6" action="#" method="POST">
           <div>
             <label
               htmlFor="user_name"
@@ -55,7 +63,7 @@ return (
                 type="password"
                 autoComplete="password"
                 value={newUser.password}
-                onChange={(e) => setNewUser({ ...newUser, password: e.target.value }
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })
                 } required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />
@@ -120,5 +128,7 @@ return (
       </div>
     </div>
   </>
-);
-}
+  );
+};
+
+export default SignUp;

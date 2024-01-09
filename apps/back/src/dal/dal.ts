@@ -1,6 +1,7 @@
-import { UUIDV4 } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 import { User } from '../db/models/userModel';
 import { sequelizeConnect } from '../db/sequelizeConnection';
+import { DATE } from 'sequelize';
 
 export const getUsersDal = async () => {
   try {
@@ -14,15 +15,16 @@ export const getUsersDal = async () => {
   }
 };
 
-export const signUpUserDal = async ( user_name, password, email, phone_number) => {
+export const signUpUserDal = async ( user_name, password, email, phone_number, created_at) => {
   try {
     await User.sync();
     const newUser = await User.create({
-      user_id: UUIDV4(),
+      user_id: uuidv4(),
       user_name: user_name,
       password: password,
       email: email,
       phone_number: phone_number,
+      created_at: new DATE(),
     },
     {
       fields: ['user_id', 'user_name', 'password', 'email', 'phone_number'],
@@ -30,6 +32,7 @@ export const signUpUserDal = async ( user_name, password, email, phone_number) =
     return newUser;
   } catch (error) {
     console.error('Error signing up:', error);
+    throw error;
   }
 };
 
