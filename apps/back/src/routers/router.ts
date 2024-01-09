@@ -1,17 +1,14 @@
 import { router, publicProcedure } from '../tRPC/tRPC';
-import { getUsersService, signUpUserService } from '../services/service';
+import {
+  getUsersService,
+  signInUserService,
+  signUpUserService,
+} from '../services/service';
 import { z } from 'zod';
+import { SignInSchema, signUpSchema } from '../zod/zodSchema';
 
 export const appRouter = router({
   getUsers: publicProcedure.query(getUsersService),
-  signUp: publicProcedure
-    .input(
-      z.object({
-        user_name: z.string(),
-        password: z.string(),
-        email: z.string(),
-        phone_number: z.string(),
-      })
-    )
-    .mutation(signUpUserService),
+  signUp: publicProcedure.input(signUpSchema).mutation(signUpUserService),
+  signIn: publicProcedure.input(SignInSchema).mutation(signInUserService),
 });

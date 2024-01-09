@@ -1,6 +1,6 @@
-import { error } from 'console';
-import { getUsersDal, signUpUserDal } from '../dal/dal';
+import { getUsersDal, signInUserDal, signUpUserDal } from '../dal/dal';
 import { User } from '../db/models/userModel';
+import { signUpSchemaType } from '../zod/zodSchema';
 
 export const getUsersService = async () => {
   try {
@@ -12,9 +12,9 @@ export const getUsersService = async () => {
   }
 };
 
-export const signUpUserService = async ({ input }) => {
+export const signUpUserService = async ( {input}: {input: signUpSchemaType} ) => {
   try {
-    const { user_name, password, email, phone_number, created_at} = input;
+    const { user_name, password, email, phone_number} = input;
     const existingUser = await User.findOne({ where: { user_name } });
     if (existingUser) {
       const error = new Error('User already exists');
@@ -22,10 +22,33 @@ export const signUpUserService = async ({ input }) => {
       (error as any).status = 409;
       throw error;
     }
-    const user = await signUpUserDal(user_name, password, email, phone_number, created_at);
+    const user = await signUpUserDal(user_name, password, email, phone_number);
     return user;
   } catch (error) {
     console.error('Error signing up user:', error);
     throw error;
   }
 };
+
+export const signInUserService = async ({ input }) => {
+  try {
+    const { user_name, password } = input;
+    const existingUser = await User.findOne({ where: { user_name } });
+    if (!existingUser) {
+      const error = new Error('User does not exist');
+      error.message = 'User does not exist';
+      throw error;
+    }
+    const isPasswordValid = await signInUserDal(user_name, password);
+    if (!isPasswordValid) {
+      const error = new Error('Invalid password');
+      error.message = 'Invalid password';
+      throw error;
+    }
+    return existingUser;
+  } catch (error) {
+    console.error('Error signing in user:', error);
+    throw error;
+  }
+};
+

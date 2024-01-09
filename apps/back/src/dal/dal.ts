@@ -15,7 +15,7 @@ export const getUsersDal = async () => {
   }
 };
 
-export const signUpUserDal = async ( user_name, password, email, phone_number, created_at) => {
+export const signUpUserDal = async ( user_name, password, email, phone_number) => {
   try {
     await User.sync();
     const newUser = await User.create({
@@ -32,6 +32,22 @@ export const signUpUserDal = async ( user_name, password, email, phone_number, c
     return newUser;
   } catch (error) {
     console.error('Error signing up:', error);
+    throw error;
+  }
+};
+
+export const signInUserDal = async (user_name, password) => {
+  try {
+    await User.sync();
+    const user = await User.findOne({
+      where: {
+        user_name: user_name,
+        password: password,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.error('Error signing in:', error);
     throw error;
   }
 };
