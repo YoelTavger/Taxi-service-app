@@ -10,6 +10,7 @@ import locationIcon from '../images/Taxi-icon.png';
 import { UserLocation } from './UserLocation';
 
 const Map = (): JSX.Element => {
+  
   const getCenterCoords = (points: Coordinate[]): Coordinate => {
     const latitudes = points.map((point) => point[0]);
     const longitudes = points.map((point) => point[1]);

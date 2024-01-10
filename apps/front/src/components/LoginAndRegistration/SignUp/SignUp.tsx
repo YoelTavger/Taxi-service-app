@@ -6,7 +6,6 @@ import {
   newUserAtom,
 } from './jotai';
 import Logo from '../../Logo';
-import { Json } from 'sequelize/types/utils';
 
 const SignUp = () => {
   const { handleSignUp } = useSignUp();
@@ -50,6 +49,7 @@ const SignUp = () => {
                 type="password"
                 autoComplete="password"
                 placeholder='enter password'
+                value={newUser.password}
                 onChange={(e) => setNewUser({ ...newUser, password: e.target.value })
                 } required
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"

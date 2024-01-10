@@ -19,13 +19,12 @@ export const signUpUserService = async ( {input}: {input: signUpSchemaType} ) =>
     if (existingUser) {
       const error = new Error('User already exists');
       error.message = 'User already exists';
-      (error as any).status = 409;
       throw error;
     }
     const user = await signUpUserDal(user_name, password, email, phone_number);
     return user;
   } catch (error) {
-    console.error('Error signing up user:', error);
+    // console.error('Error signing up user:', error);
     throw error;
   }
 };

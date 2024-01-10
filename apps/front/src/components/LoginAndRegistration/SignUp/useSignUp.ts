@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 import { tRPC } from '../../../tRPCclient';
 import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
@@ -10,7 +10,7 @@ const useSignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useAtom(loadingAtom);
   const [newUser, setNewUser] = useAtom(newUserAtom);
-  const [errorC, setErrorC] = useAtom(errorAtom);
+  const [error, setError] = useAtom(errorAtom);
   const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
@@ -18,7 +18,7 @@ const useSignUp = () => {
 
     const isFormValid = Object.values(newUser).every((value) => value !== '');
     if (!isFormValid) {
-      setErrorC('Please fill out all fields');
+      setError('Please fill out all fields');
       return;
     }
 
@@ -27,7 +27,8 @@ const useSignUp = () => {
       const result = await tRPC.signUp.mutate(newUser);
       console.log('user added successfully', newUser);
       navigate('/map');
-      setErrorC(null);
+      setError(null);
+      setIsAuthenticated(true);
       setNewUser({
         user_name: '',
         password: '',
@@ -37,11 +38,13 @@ const useSignUp = () => {
       });
       return result;
     } catch (error) {
-      console.error('error adding user', error);
-      if (error instanceof Error) {
-        setErrorC(JSON.parse(error.message)[0].message);
+      // console.error('error adding user', error);
+      if (error instanceof TRPCClientError) {
+        error.message === "User already exists"
+          ? setError(error.message)
+          : setError(JSON.parse(error.message)[0].message);
       } else {
-        setErrorC('Something went wrong');
+        setError('Something went wrong');
       }
     } finally {
       setLoading(false);

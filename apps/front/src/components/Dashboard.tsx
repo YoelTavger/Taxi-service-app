@@ -19,7 +19,7 @@ function classNames(...classes: string[] | boolean[]) {
 }
 
 export default function Dashboard() {
-  const [currentSignIn, setCurrentSignIn] = useState(true);
+  const [currentSignIn, setCurrentSignIn] = useState(false);
   const [currentSignUp, setCurrentSignUp] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
   const navigate = useNavigate();
@@ -113,6 +113,7 @@ export default function Dashboard() {
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-amber-500'
                                     )}
+                                    onClick={() => handleSignOut()}
                                   >
                                     Sign out
                                   </a>
@@ -143,7 +144,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <Disclosure.Panel className="md:hidden">
-                {isAuthenticated ? (
+                {!isAuthenticated ? (
                   <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                     {navigation.map((item) => (
                       <Disclosure.Button
