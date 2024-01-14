@@ -3,6 +3,7 @@ export interface UserType {
     user_name: string;
     password: string;
     email: string;
+    full_name: string;
     phone_number: string;
     created_at?: Date;
 }

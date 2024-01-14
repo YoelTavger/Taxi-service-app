@@ -1,27 +1,30 @@
 import { sequelizeConnect } from "../sequelizeConnection";
-
-const { Sequelize, DataTypes } = require('sequelize');
+import { DataTypes, Sequelize } from 'sequelize';
 
 export const User = sequelizeConnect.define('User', {
   user_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
   },
   user_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.STRING(50),
+    defaultValue: "user"
   },
   password: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+  full_name: {
+    type: DataTypes.STRING(100),
     allowNull: false,
   },
   phone_number: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(15),
     allowNull: false,
   },
   created_at: {

@@ -8,5 +8,6 @@ export const newUserAtom = atom({
   password: '',
   confirm_password: '',
   email: '',
+  full_name: '',
   phone_number: '',
 });

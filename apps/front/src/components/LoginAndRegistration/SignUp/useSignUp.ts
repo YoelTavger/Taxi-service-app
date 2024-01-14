@@ -34,6 +34,7 @@ const useSignUp = () => {
         password: '',
         confirm_password: '',
         email: '',
+        full_name: '',
         phone_number: '',
       });
       return result;

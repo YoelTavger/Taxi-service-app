@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { User } from '../db/models/userModel';
 import { sequelizeConnect } from '../db/sequelizeConnection';
 import { DATE } from 'sequelize';
+import Taxi from '../db/models/taxiesModel';
 
 export const getUsersDal = async () => {
   try {
@@ -15,7 +16,7 @@ export const getUsersDal = async () => {
   }
 };
 
-export const signUpUserDal = async ( user_name, password, email, phone_number) => {
+export const signUpUserDal = async ( user_name, password, email, full_name, phone_number) => {
   try {
     await User.sync();
     const newUser = await User.create({
@@ -23,11 +24,12 @@ export const signUpUserDal = async ( user_name, password, email, phone_number) =
       user_name: user_name,
       password: password,
       email: email,
+      full_name: full_name,
       phone_number: phone_number,
       created_at: new DATE(),
     },
     {
-      fields: ['user_id', 'user_name', 'password', 'email', 'phone_number'],
+      fields: ['user_id', 'user_name', 'password', 'email', 'full_name', 'phone_number'],
     });
     return newUser;
   } catch (error) {
@@ -48,6 +50,23 @@ export const signInUserDal = async (user_name, password) => {
     return user;
   } catch (error) {
     console.error('Error signing in:', error);
+    throw error;
+  }
+};
+
+export const getActiveTaxiDataDal = async () => {
+  try {
+    await sequelizeConnect.sync();
+    const data = await Taxi.findAll({
+      where: {
+        availability: "Available",
+      },
+      raw: true,
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 };

@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 import chalk from 'chalk';
 
-
 export const sequelizeConnect = new Sequelize('postgres', 'postgres', '11235', {
   host: 'localhost',
   dialect: 'postgres',

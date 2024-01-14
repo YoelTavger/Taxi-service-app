@@ -1,13 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import useGetUsers from "./useGetUsers";
-
-export interface User {
-  userid: number;
-  username: string;
-  password: string;
-  email: string;
-  phonenumber: string;
-}
 
 const Users: React.FC = () => {
   const { users, loading, error } = useGetUsers();
