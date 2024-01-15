@@ -71,3 +71,20 @@ export const getActiveTaxiDataDal = async () => {
   }
 };
 
+export const getBusyTaxiDataDal = async () => {
+  try {
+    await sequelizeConnect.sync();
+    const data = await Taxi.findAll({
+      where: {
+        availability: "Busy",
+      },
+      raw: true,
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+

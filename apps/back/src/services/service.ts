@@ -1,4 +1,4 @@
-import { getActiveTaxiDataDal, getUsersDal, signInUserDal, signUpUserDal } from '../dal/dal';
+import { getActiveTaxiDataDal, getBusyTaxiDataDal, getUsersDal, signInUserDal, signUpUserDal } from '../dal/dal';
 import { User } from '../db/models/userModel';
 import { signUpSchemaType } from '../zod/zodSchema';
 
@@ -49,6 +49,17 @@ export const getActiveTaxiDataService = async () => {
     return activeTaxis;
   } catch (error) {
     console.error('Error fetching active taxis:', error);
+    return {message: error.message,statusCode: 500}
+    throw error;
+  }
+};
+
+export const getBusyTaxiDataService = async () => {
+  try {
+    const busyTaxis = await getBusyTaxiDataDal();
+    return busyTaxis;
+  } catch (error) {
+    console.error('Error fetching busy taxis:', error);
     throw error;
   }
 };

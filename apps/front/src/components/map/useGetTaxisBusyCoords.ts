@@ -11,7 +11,11 @@ interface Taxi {
   availability: string;
 }
 
-const useGetTaxisAvailableCoords = () => {
+interface QueryResponse {
+  [key: string]: Taxi[];
+}
+
+const useGetTaxisBusyCoords = (query: string) => {
   const [coords, setCoords] = useState<Taxi[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,7 +23,7 @@ const useGetTaxisAvailableCoords = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const taxiData: Taxi[] = await t.getActiveTaxiData.query() as Taxi[];
+        const taxiData: Taxi[] = await t[query].query() as Taxi[];
         setCoords(taxiData);
       } catch (error) {
         setError(`Error fetching user data: ${error}`);
@@ -29,9 +33,9 @@ const useGetTaxisAvailableCoords = () => {
     };
 
     fetchData();
-  }, []); 
+  }, [query]); 
 
   return { coords, loading, error };
 };
 
-export default useGetTaxisAvailableCoords;
+export default useGetTaxisBusyCoords;

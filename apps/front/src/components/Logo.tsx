@@ -3,13 +3,14 @@ import { faDharmachakra } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 export default function Logo() {
-  const [flag, useFlag] = useState<boolean>(true);
+  const [flag, setFlag] = useState<boolean>(true);
 
   function handleClick() {
-    useFlag(!flag);
+    setFlag(!flag);
   }
+
   return (
-    <>
+    <div>
       {flag ? (
         <FontAwesomeIcon icon={faDharmachakra} spin size="2x" onClick={handleClick} />
       ) : (
@@ -21,6 +22,6 @@ export default function Logo() {
           onClick={handleClick}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -1,0 +1,42 @@
+.ol-zoom  {
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+.ol-zoom-out {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    background-color: #f59e0b;
+    margin: 8px;
+    padding: 10px;
+    border-radius: 50%;
+}
+.ol-zoom-out:hover {
+    background-color: #f8aa0b;
+}
+.ol-zoom-in {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    background-color: #f8aa0b;
+    margin: 16px 8px 8px 8px;
+    padding: 10px;
+    border-radius: 50%;
+}
+.ol-zoom-in:hover {
+    background-color: #f59e0b;
+}
+.ol-compass {
+    display: none;
+}
+.ol-rotate {
+    display: none;
+}
+.ol-attribution {
+    display: none;
+}

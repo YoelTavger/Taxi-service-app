@@ -1,4 +1,3 @@
-// TaxiOrderForm.tsx
 import React, { useState } from 'react';
 import Logo from './Logo';
 
@@ -9,14 +8,8 @@ interface TaxiOrderFormProps {
 
 const TaxiOrderForm: React.FC<TaxiOrderFormProps> = ({ onClose, onConfirm }) => {
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedTime, setSelectedTime] = useState('');
 
     const handleConfirm = () => {
-        // Implement logic to find and mark the relevant taxi on the map
-        // You can use the selectedCategory, selectedTime, and any other necessary data
-        // You may want to communicate with a server to find the nearest taxi and calculate the route/time.
-
-        // Call the onConfirm function to close the form or perform additional actions
         onConfirm();
     };
 
@@ -43,13 +36,6 @@ const TaxiOrderForm: React.FC<TaxiOrderFormProps> = ({ onClose, onConfirm }) => 
                 <input type="radio" id="javascript" name="fav_language" value="JavaScript" />
                 <label htmlFor="javascript">JavaScript</label>
             </div>
-
-
-
-
-
-
-
             <div>
                 <button
                     className="bg-amber-500 text-white px-4 py-2 rounded-md hover:bg-amber-400"

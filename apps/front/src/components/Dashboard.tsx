@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Logo from './Logo';
 import BackGroundImage from './BackGroundImage';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +51,7 @@ export default function Dashboard() {
   };
 
   return (
-    <>
+    
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-amber-500">
           {({ open }) => (
@@ -64,7 +64,7 @@ export default function Dashboard() {
                       <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-4">
                           {navigation.map((item) => (
-                            <a
+                            <div
                               key={item.name}
                               onClick={item.onClick}
                               className={classNames(
@@ -76,7 +76,7 @@ export default function Dashboard() {
                               aria-current={item.current ? 'page' : undefined}
                             >
                               {item.name}
-                            </a>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -108,7 +108,7 @@ export default function Dashboard() {
                             <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                               <Menu.Item key={'signOut'}>
                                 {({ active }) => (
-                                  <a
+                                  <div
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-amber-500'
@@ -116,7 +116,7 @@ export default function Dashboard() {
                                     onClick={() => handleSignOut()}
                                   >
                                     Sign out
-                                  </a>
+                                  </div>
                                 )}
                               </Menu.Item>
                             </Menu.Items>
@@ -200,6 +200,5 @@ export default function Dashboard() {
         </Disclosure>
         <BackGroundImage />
       </div>
-    </>
   );
 }
