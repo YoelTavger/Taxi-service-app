@@ -1,29 +1,20 @@
 import { useEffect, useState } from "react";
 import { tRPC } from "../../tRPCclient";
+import { Taxi } from "../../types";
 
-const t = tRPC;
-
-interface Taxi {
-  taxi_id: string;
-  model: string;
-  license_plate: string;
-  current_location: { x: number; y: number };
-  availability: string;
+interface UseGetTaxisBusyCoordsProps {
+  query: "busy" | "available";
 }
 
-interface QueryResponse {
-  [key: string]: Taxi[];
-}
-
-const useGetTaxisBusyCoords = (query: string) => {
-  const [coords, setCoords] = useState<Taxi[]>([]);
+const useGetTaxisBusyCoords = (props: UseGetTaxisBusyCoordsProps) => {
+  const [coords, setCoords] = useState<object[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const taxiData: Taxi[] = await t[query].query() as Taxi[];
+        const taxiData = await tRPC.getTaxiByAvailability.query(props.query);
         setCoords(taxiData);
       } catch (error) {
         setError(`Error fetching user data: ${error}`);
@@ -33,9 +24,10 @@ const useGetTaxisBusyCoords = (query: string) => {
     };
 
     fetchData();
-  }, [query]); 
+  }, [props.query]);
 
   return { coords, loading, error };
 };
 
 export default useGetTaxisBusyCoords;
+

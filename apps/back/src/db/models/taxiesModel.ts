@@ -1,7 +1,8 @@
+import { TaxiAttributes } from "../../types";
 import { sequelizeConnect } from "../sequelizeConnection";
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
-export const Taxi = sequelizeConnect.define('Taxi', {
+export const Taxi = sequelizeConnect.define<Model<TaxiAttributes>>('taxis', {
   taxi_id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,

@@ -1,6 +1,6 @@
-import { getActiveTaxiDataDal, getBusyTaxiDataDal, getUsersDal, signInUserDal, signUpUserDal } from '../dal/dal';
+import { getTaxiByAvailabilityDal, getUsersDal, signInUserDal, signUpUserDal } from '../dal/dal';
 import { User } from '../db/models/userModel';
-import { signUpSchemaType } from '../zod/zodSchema';
+import { signUpSchemaType, SignInSchemaType } from '../zod/zodSchema';
 
 export const getUsersService = async () => {
   try {
@@ -11,19 +11,17 @@ export const getUsersService = async () => {
     throw error;
   }
 };
-
 export const signUpUserService = async ( {input}: {input: signUpSchemaType} ) => {
-    const { user_name, password, email, full_name, phone_number} = input;
+    const { user_name } = input;
     const existingUser = await User.findOne({ where: { user_name } });
     if (existingUser) {
       const error = new Error('User already exists');
       throw error;
     }
-    const user = await signUpUserDal(user_name, password, email, full_name, phone_number);
+    const user = await signUpUserDal(input);
     return user;
 };
-
-export const signInUserService = async ({ input }) => {
+export const signInUserService = async ({ input }: { input: SignInSchemaType }) => {
   try {
     const { user_name, password } = input;
     const existingUser = await User.findOne({ where: { user_name } });
@@ -42,27 +40,18 @@ export const signInUserService = async ({ input }) => {
     throw error;
   }
 };
-
-export const getActiveTaxiDataService = async () => {
+export const getTaxiByAvailabilityService = async (res: { input: string; }) => {
   try {
-    const activeTaxis = await getActiveTaxiDataDal();
-    return activeTaxis;
+    return await getTaxiByAvailabilityDal(res.input);
   } catch (error) {
-    console.error('Error fetching active taxis:', error);
-    return {message: error.message,statusCode: 500}
+    console.error('error in getTaxiByAvailability', error);
     throw error;
   }
 };
 
-export const getBusyTaxiDataService = async () => {
-  try {
-    const busyTaxis = await getBusyTaxiDataDal();
-    return busyTaxis;
-  } catch (error) {
-    console.error('Error fetching busy taxis:', error);
-    throw error;
-  }
-};
+
+
+
 
 
 

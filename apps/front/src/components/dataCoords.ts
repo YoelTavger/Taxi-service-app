@@ -30,3 +30,11 @@ export const coords = [
     { name: 'YadMordechai', coordinates: [34.5567, 31.5857] },
     { name: 'AyalonInstitute', coordinates: [34.8259, 32.0450] },
   ]
+
+  
+/*
+32.158 : 34.796
+
+
+
+*/
