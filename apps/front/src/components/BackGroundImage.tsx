@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 
 export default function BackGroundImage() {
     return (
@@ -13,7 +12,6 @@ export default function BackGroundImage() {
           color: 'white',
         }}
       >
-        <Outlet />
       </div>
     );
   }

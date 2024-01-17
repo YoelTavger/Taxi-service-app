@@ -21,20 +21,17 @@ const TaxiOrderForm: React.FC<TaxiOrderFormProps> = ({ onClose, onConfirm }) => 
             </div>
             <input className='mb-4 border-2 border-amber-500 rounded-md p-2' type="text" placeholder='Enter a destination' />
 
-            <label className='mb-2 block'>Category</label>
-            <select className='mb-4 border-2 border-amber-500 rounded-md p-2' value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                <option value="">Select a category</option>
-                <option value="Economy">Economy</option>
-                <option value="Comfort">Comfort</option>
-                <option value="Business">Business</option>
-            </select>
-            <div>
-                <input type="radio" id="html" name="fav_language" value="HTML" className='mr-2 color-amber-500 border-2 border-amber-500 rounded-md p-2' />
-                <label htmlFor="html" className='mr-2'>HTML</label>
-                <input type="radio" id="css" name="fav_language" value="CSS" />
-                <label htmlFor="css">CSS</label>
-                <input type="radio" id="javascript" name="fav_language" value="JavaScript" />
-                <label htmlFor="javascript">JavaScript</label>
+            <label className='mb-2 block'>Number of passengers</label>
+            <input type="number" className='w-[30%] mb-4 border-2 border-amber-500 rounded-md p-2'/>
+            <div className='flex flex-col'>
+                <div>
+                    <input type="radio" id="Classic" name="fav_language" value="Classic" className='mr-2 color-amber-500 border-2 border-amber-500 rounded-md p-2' />
+                    <label htmlFor="Classic" className='mr-2'>Classic</label>
+                </div>
+                <div>
+                    <input type="radio" id="css" name="fav_language" value="VIP" />
+                    <label htmlFor="VIP" className='ml-2'>VIP</label>
+                </div>
             </div>
             <div>
                 <button

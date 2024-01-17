@@ -6,6 +6,8 @@ import BackGroundImage from './BackGroundImage';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticatedAtom } from './jotai/useAtom';
 import { useAtom } from 'jotai';
+import { Outlet } from "react-router-dom";
+
 
 const user = {
   name: 'Tom Cook',
@@ -53,7 +55,7 @@ export default function Dashboard() {
   return (
     
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-amber-500">
+        <Disclosure as="nav" className="bg-amber-500 h-[8vh]">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -198,7 +200,7 @@ export default function Dashboard() {
             </>
           )}
         </Disclosure>
-        <BackGroundImage />
+        <Outlet />
       </div>
   );
 }
