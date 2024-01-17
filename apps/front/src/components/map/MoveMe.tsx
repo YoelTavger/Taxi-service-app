@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { RFeature, ROverlay, RStyle } from 'rlayers';
 import { Point } from 'ol/geom';
-import locationIcon from '../../images/taxiRedicon.png';
+import locationIcon from '../../images/locationIcon.png';
 import { Coordinate } from 'ol/coordinate';
 
 export const MoveMe = () => {
@@ -36,7 +36,7 @@ export const MoveMe = () => {
         )}
       >
         <RStyle.RStyle>
-          <RStyle.RIcon src={locationIcon} scale={0.4} anchor={[0.5, 0.8]} />
+          <RStyle.RIcon src={locationIcon} scale={0.05} anchor={[0.5, 0.8]} />
         </RStyle.RStyle>
         <ROverlay className="example-overlay text-black">Move me</ROverlay>
       </RFeature>

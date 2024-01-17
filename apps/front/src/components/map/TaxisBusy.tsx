@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { RFeature, RLayerVector, RPopup, RStyle } from 'rlayers';
-import redTaxi from '../../images/Taxi-icon-red.png';
-import greenTaxi from '../../images/Taxi-icon-green.png';
+import redTaxi from '../../images/taxiRedIcon.png';
+import greenTaxi from '../../images/taxiGreenIcon.png';
 import { Point } from 'ol/geom';
 import { fromLonLat } from 'ol/proj';
 import useGetTaxisBusyCoords from './useGetTaxisBusyCoords';
@@ -15,10 +15,6 @@ interface Props {
 const TaxisBusy: React.FC<Props> = ({ availability }) => {
   const { coords, loading, error } = useGetTaxisBusyCoords({ query: availability });
 
-  useEffect(() => {
-    console.log(coords);
-  }, [coords]);
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
 
@@ -28,9 +24,9 @@ const TaxisBusy: React.FC<Props> = ({ availability }) => {
         <RLayerVector key={coord.taxi_id} zIndex={10}>
           <RStyle.RStyle>
             {availability === TaxiAvailability.Busy ? (
-              <RStyle.RIcon src={redTaxi} scale={0.05} anchor={[0.5, 0.8]} />
+              <RStyle.RIcon src={redTaxi} scale={0.4} anchor={[0.5, 0.8]} />
             ) : (
-              <RStyle.RIcon src={greenTaxi} scale={0.04} anchor={[0.5, 0.8]} />
+              <RStyle.RIcon src={greenTaxi} scale={0.4} anchor={[0.5, 0.8]} />
             )}
             <RFeature
               geometry={

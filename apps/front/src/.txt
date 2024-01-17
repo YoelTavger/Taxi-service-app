@@ -1,0 +1,30 @@
+-- create type user_schema.jwt_token as (
+--   role text,
+--   exp integer,
+--   email text,
+--   user_name varchar
+-- );
+-- DROP TYPE IF EXISTS user_schema.jwt_token;
+create function user_schema.authenticate(
+  email text,
+  password text
+)
+returns user_schema.jwt_token as $$
+declare
+  account user_schema.users;
+begin
+  select a.* into account
+  from user_schema.users as a
+  where a.email = authenticate.email;
+  if account.password = authenticate.password then
+    return (
+      'person_role',
+      extract(epoch from now() + interval '7 days'),
+      account.email,
+      account.user_name
+    )::user_schema.jwt_token;
+  else
+    raise exception 'Invalid email or password';
+  end if;
+end;
+$$ language plpgsql strict security definer;

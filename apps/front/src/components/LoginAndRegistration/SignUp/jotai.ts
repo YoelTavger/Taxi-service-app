@@ -4,10 +4,10 @@ import { atom } from 'jotai';
 export const loadingAtom = atom<boolean>(true);
 export const errorAtom = atom<string | null>('');
 export const newUserAtom = atom({
-  user_name: '',
+  userName: '',
   password: '',
-  confirm_password: '',
+  confirmPassword: '',
   email: '',
-  full_name: '',
-  phone_number: '',
+  fullName: '',
+  phoneNumber: '',
 });

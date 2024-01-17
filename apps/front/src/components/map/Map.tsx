@@ -51,10 +51,9 @@ const Map = (): JSX.Element => {
         <RLayerTile url="http://mt0.google.com/vt/lyrm&hl=he&x={x}&y={y}&z={z}" />
         <RLayerVector>
           {userLocation && <UserLocation userCoordinates={userLocation} />}
-          <MoveMe />
         </RLayerVector>
-        <TaxisBusy availability={TaxiAvailability.Available} />
         <TaxisBusy availability={TaxiAvailability.Busy} />
+        <TaxisBusy availability={TaxiAvailability.Available} />
       </RMap>
       <button
         onClick={handleOrderButtonClick}

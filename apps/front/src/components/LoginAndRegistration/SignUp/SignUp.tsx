@@ -35,9 +35,9 @@ const SignUp = () => {
                 type="text"
                 autoComplete="full_name"
                 placeholder='enter full_name'
-                value={newUser.full_name}
+                value={newUser.fullName}
                 onChange={(e) =>
-                  setNewUser({ ...newUser, full_name: e.target.value })
+                  setNewUser({ ...newUser, fullName: e.target.value })
                 } required
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />
@@ -50,9 +50,9 @@ const SignUp = () => {
                 type="text"
                 autoComplete="username"
                 placeholder='enter user_name'
-                value={newUser.user_name}
+                value={newUser.userName}
                 onChange={(e) =>
-                  setNewUser({ ...newUser, user_name: e.target.value })
+                  setNewUser({ ...newUser, userName: e.target.value })
                 }
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />
@@ -71,7 +71,6 @@ const SignUp = () => {
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />
             </div>
-
             <div className="mt-2">
               <input
                 id="confirm_password"
@@ -79,13 +78,12 @@ const SignUp = () => {
                 type="password"
                 autoComplete="password"
                 placeholder="confirm password"
-                value={newUser.confirm_password}
-                onChange={(e) => setNewUser({ ...newUser, confirm_password: e.target.value })
+                value={newUser.confirmPassword}
+                onChange={(e) => setNewUser({ ...newUser, confirmPassword: e.target.value })
                 } required
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />
             </div>
-
             <div className="mt-2">
               <input
                 id="email"
@@ -100,8 +98,6 @@ const SignUp = () => {
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />
             </div>
-
-
             <div className="mt-2">
               <input
                 id="phone_number"
@@ -109,9 +105,9 @@ const SignUp = () => {
                 type="tel"
                 autoComplete="tel"
                 placeholder='enter phone_number'
-                value={newUser.phone_number}
+                value={newUser.phoneNumber}
                 onChange={(e) =>
-                  setNewUser({ ...newUser, phone_number: e.target.value })
+                  setNewUser({ ...newUser, phoneNumber: e.target.value })
                 } required
                 className="block w-full rounded-md border-0 py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-amber-500 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
               />

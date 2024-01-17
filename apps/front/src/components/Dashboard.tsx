@@ -55,7 +55,7 @@ export default function Dashboard() {
   return (
     
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-amber-500 h-[8vh]">
+        <Disclosure as="nav" className="bg-amber-500">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
