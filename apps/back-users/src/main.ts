@@ -16,12 +16,14 @@ const url = "postgres://postgres:11235@localhost:5432/postgres"
       enhanceGraphiql: true,
       graphqlRoute: '/graphql',
       graphiqlRoute: '/graphiql',
-      // jwtPgTypeIdentifier: "test.jwt_token",
-      // jwtSecret: process.env.JWT_SECRET
+      jwtPgTypeIdentifier: "user_schema.jwt_token",
+      jwtSecret: process.env.JWT_SECRET
     }))
+
   app.use(
     "/graphql",
     express.json(),
     morgan("tiny"),
   );
+  
 app.listen(5000,() => console.log("server is listen in http://localhost:5000/graphiql"))

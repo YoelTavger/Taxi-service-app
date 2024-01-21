@@ -10,7 +10,6 @@ import TaxiOrderForm from '../TaxiOrderForm';
 import TaxisBusy from './TaxisBusy';
 import './Map.css';
 import { TaxiAvailability } from '../../types';
-import { MoveMe } from './MoveMe';
 
 const Map = (): JSX.Element => {
   const points = coords.map((coord) => coord.coordinates);

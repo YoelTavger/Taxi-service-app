@@ -7,3 +7,4 @@ export const userAtom = atom({
   user_name: '',
   password: '',
 });
+export const jwtTokenAtom = atom<string | null>('');
