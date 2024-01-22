@@ -1,19 +1,19 @@
 import { FormEvent } from 'react';
-import { tRPC } from '../../../tRPCclient';
 import { useNavigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { errorAtom, loadingAtom, newUserAtom } from './jotai';
-import { isAuthenticatedAtom } from '../../jotai/useAtom';
 import { TRPCClientError } from '@trpc/client';
 import { CREATE_USER } from '../../../users/mutation';
 import { useMutation } from '@apollo/client';
+import { jwtTokenAtom, userAtom } from '../SignIn/jotai';
 
 const useSignUp = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useAtom(loadingAtom);
   const [newUser, setNewUser] = useAtom(newUserAtom);
+  const [user, setuser] = useAtom(userAtom)
   const [error, setError] = useAtom(errorAtom);
-  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [token, setToken] = useAtom(jwtTokenAtom)
   const [createUser] = useMutation(CREATE_USER);
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
@@ -28,9 +28,10 @@ const useSignUp = () => {
     try {
       setLoading(true);
       console.log('user added successfully', newUser);
-      navigate('/map');
+      navigate('/signin');
       setError(null);
-      setIsAuthenticated(true);
+      setToken(localStorage.getItem('tokenKey'));
+      setuser({user_name: newUser.userName, password: newUser.password})
       setNewUser({
         userName: '',
         password: '',

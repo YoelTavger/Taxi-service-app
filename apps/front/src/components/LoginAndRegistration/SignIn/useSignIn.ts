@@ -1,7 +1,6 @@
 import { useAtom } from 'jotai';
-import { isAuthenticatedAtom } from '../../jotai/useAtom';
 import { useNavigate } from 'react-router-dom';
-import { errorAtom, loadingAtom, userAtom } from './jotai';
+import { errorAtom, jwtTokenAtom, loadingAtom, userAtom } from './jotai';
 import { FormEvent } from 'react';
 import { TRPCClientError } from '@trpc/client';
 import { SIGNIN_USER } from '../../../users/mutation';
@@ -9,10 +8,10 @@ import { useMutation } from '@apollo/client';
 
 const useSignIn = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useAtom(loadingAtom);
+  const [, setLoading] = useAtom(loadingAtom);
   const [user, setUser] = useAtom(userAtom);
-  const [error, setError] = useAtom(errorAtom);
-  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [, setError] = useAtom(errorAtom);
+  const [, setToken] = useAtom(jwtTokenAtom);
   const [signInUser] = useMutation(SIGNIN_USER);
 
   const handleSignIn = async (e: FormEvent<HTMLFormElement>) => {
@@ -24,7 +23,7 @@ const useSignIn = () => {
       return;
     }
     try {
-      // setLoading(true);
+      setLoading(true);
       const { data } = await signInUser({
         variables: {
           input: {
@@ -33,9 +32,9 @@ const useSignIn = () => {
           },
         },
       });
-      setIsAuthenticated(true);
       const jwt = await data.authenticate.jwtToken;
       localStorage.setItem('tokenKey', jwt);
+      setToken(jwt);
       console.log('user signed in successfully', user);
       navigate('/map');
       setError(null);
@@ -54,7 +53,7 @@ const useSignIn = () => {
       setLoading(false);
     }
   };
-  return { handleSignIn: handleSignIn };
+  return { handleSignIn };
 };
 
 export default useSignIn;

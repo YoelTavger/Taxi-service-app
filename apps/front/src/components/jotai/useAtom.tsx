@@ -1,3 +1,3 @@
-import { atom } from 'jotai'
+import { atom } from "jotai";
 
-export const isAuthenticatedAtom = atom<boolean>(false)
+export const clickedAtom = atom<boolean[]>([true, false]);
