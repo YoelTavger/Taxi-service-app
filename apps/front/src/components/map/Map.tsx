@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { fromLonLat } from 'ol/proj';
 import { Coordinate } from 'ol/coordinate';
 import { coords } from '../dataCoords';
-import { RMap, RLayerVector, RLayerTile } from 'rlayers';
+import { RLayerVector, RLayerTile, RMap } from 'rlayers';
 import { UserLocation } from '../UserLocation';
 import getZoom from './getZoom';
 import getCenterCoords from './getCenterCoords';
@@ -41,13 +41,11 @@ const Map = (): JSX.Element => {
       <RMap
         className="w-[100%] h-[95%] overflow-hidden "
         initial={{
-          center: userLocation
-            ? fromLonLat(userLocation)
-            : fromLonLat(centerCoords),
-          zoom: zoom,
+          center: fromLonLat(userLocation || centerCoords),
+          zoom: 15,
         }}
       >
-        <RLayerTile url="http://mt0.google.com/vt/lyrm&hl=he&x={x}&y={y}&z={z}" />
+        <RLayerTile url="http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}" />
         <RLayerVector>
           {userLocation && <UserLocation userCoordinates={userLocation} />}
         </RLayerVector>
@@ -62,10 +60,10 @@ const Map = (): JSX.Element => {
       </button>
 
       {showOrderForm && (
-          <TaxiOrderForm
-            onClose={handleOrderFormClose}
-            onConfirm={handleOrderFormClose}
-          />
+        <TaxiOrderForm
+          onClose={handleOrderFormClose}
+          onConfirm={handleOrderFormClose}
+        />
       )}
     </div>
   );

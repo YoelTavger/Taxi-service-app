@@ -1,11 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import Logo from '../../Logo';
 import { useAtom } from 'jotai';
 import { errorAtom, loadingAtom, userAtom } from './jotai';
 import useSignIn from './useSignIn';
 
 export default function SignIn() {
-  const navigate = useNavigate();
   const { handleSignIn } = useSignIn();
   const [loading, setLoading] = useAtom(loadingAtom);
   const [error, setError] = useAtom(errorAtom);
