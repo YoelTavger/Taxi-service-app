@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { tRPC } from "../../tRPCclient";
-import { Taxi } from "../../types";
+import { TaxiAttributes } from "../../../../back/src/types";
 
 interface UseGetTaxisBusyCoordsProps {
   query: "busy" | "available";
 }
 
 const useGetTaxisBusyCoords = (props: UseGetTaxisBusyCoordsProps) => {
-  const [coords, setCoords] = useState<object[]>([]);
+  const [coords, setCoords] = useState<TaxiAttributes[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

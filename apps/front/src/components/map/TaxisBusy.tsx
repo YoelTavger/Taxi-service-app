@@ -7,13 +7,14 @@ import { fromLonLat } from 'ol/proj';
 import useGetTaxisBusyCoords from './useGetTaxisBusyCoords';
 import { TaxiAvailability } from '../../types';
 
-
 interface Props {
   availability: TaxiAvailability;
 }
 
 const TaxisBusy: React.FC<Props> = ({ availability }) => {
-  const { coords, loading, error } = useGetTaxisBusyCoords({ query: availability });
+  const { coords, loading, error } = useGetTaxisBusyCoords({
+    query: availability,
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error!</p>;
@@ -42,7 +43,8 @@ const TaxisBusy: React.FC<Props> = ({ availability }) => {
                 trigger="hover"
                 className="bg-amber-500 text-white p-2 rounded-xl grid justify-items-center max-w-48 max-h-48"
               >
-                <p>{coord.availability}</p>
+                <p>{coord.model}</p>
+                <p>{coord.license_plate}</p>
               </RPopup>
             </RFeature>
           </RStyle.RStyle>

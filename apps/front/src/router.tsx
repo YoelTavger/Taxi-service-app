@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Dashboard from './components/dashboard/Dashboard';
 import SignIn from './components/LoginAndRegistration/SignIn/SignIn';
-import Map from './components/map/Map';
 import SignUp from './components/LoginAndRegistration/SignUp/SignUp';
 import Geolocation from './components/map/Geolocation';
 

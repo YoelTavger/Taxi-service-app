@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import { RMap, RLayerTile } from 'rlayers';
 import TaxisBusy from './TaxisBusy';
 import { TaxiAvailability } from '../../types';
@@ -14,10 +14,13 @@ import { Geolocation as OLGeoLoc } from 'ol';
 import { RLayerVector, RFeature, RGeolocation, RStyle, useOL } from 'rlayers';
 import locationIcon from '../../images/locationIcon.png';
 import './Map.css';
+import TheNearestTaxi from './TheNearestTaxi';
+import { Coordinate } from 'ol/coordinate';
 
 function GeolocComp(): JSX.Element {
   const [pos, setPos] = useState<Point>(new Point([0, 0]));
   const [accuracy, setAccuracy] = useState<Geometry | undefined>(undefined);
+  const [userLocation, setUserLocation] = useState<Coordinate | null>(null);
 
   const { map } = useOL();
 
@@ -25,6 +28,16 @@ function GeolocComp(): JSX.Element {
     (e: { target: OLGeoLoc }) => {
       const geoloc = e.target as OLGeoLoc;
       const position = geoloc.getPosition();
+
+      // המיקום הנוכחי בשיטה של קוארדינטות
+      // navigator.geolocation.getCurrentPosition((position) => {
+      //   setUserLocation([
+      //     position.coords.longitude,
+      //     position.coords.latitude,
+      //   ]);
+      //   console.log("yyyyyyyyyyyyyyyyyyyyyyy", position.coords.longitude, position.coords.latitude);
+      // });
+
       const accuracyGeometry = geoloc.getAccuracyGeometry();
 
       if (position) {
@@ -44,7 +57,10 @@ function GeolocComp(): JSX.Element {
     },
     [map]
   );
-
+  console.log(
+    toLonLat(pos.getCoordinates())[1],
+    toLonLat(pos.getCoordinates())[0]
+  );
   return (
     <>
       <RGeolocation
@@ -58,6 +74,7 @@ function GeolocComp(): JSX.Element {
         </RStyle.RStyle>
         <RFeature geometry={pos}></RFeature>
         {accuracy && <RFeature geometry={accuracy}></RFeature>}
+        <TheNearestTaxi long={toLonLat(pos.getCoordinates())[1]} lat={toLonLat(pos.getCoordinates())[0]} />
       </RLayerVector>
     </>
   );
@@ -79,7 +96,7 @@ export default function Geolocation(): JSX.Element {
   return (
     <>
       <RMap
-        className="w-[100%] h-[92vh]"
+        className="w-[100%] h-[92dvh]"
         initial={{ center: fromLonLat(centerCoords), zoom: zoom }}
       >
         <RLayerTile url="http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}" />

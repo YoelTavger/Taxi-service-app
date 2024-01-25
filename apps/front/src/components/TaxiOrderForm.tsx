@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Logo from './Logo';
 
 interface TaxiOrderFormProps {
-    onClose: () => void;
-    onConfirm: () => void;
+  onClose: () => void;
+  onConfirm: () => void;
 }
 
 const TaxiOrderForm: React.FC<TaxiOrderFormProps> = ({ onClose, onConfirm }) => {
-    const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const formRef = useRef<HTMLDivElement>(null);
 
-    const handleConfirm = () => {
-        onConfirm();
+  const handleConfirm = () => {
+    onConfirm();
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (formRef.current && !formRef.current.contains(event.target as Node)) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []); // Cleanup the event listener on unmount
 
-    return (
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-md shadow-md text-black">
+  return (
+    <div
+      ref={formRef}
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-md shadow-md text-black"
+    >
             <div className='flex items-center mb-4'>
                 <Logo />
                 <h2 className="text-2xl font-bold ml-2">Order a Taxi</h2>

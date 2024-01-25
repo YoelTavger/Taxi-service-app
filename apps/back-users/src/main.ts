@@ -3,20 +3,20 @@ import morgan from "morgan";
 import express from 'express'
 import postgraphile from "postgraphile";
 
-const url = "postgres://postgres:11235@localhost:5432/postgres"
+const url = "postgres://taxiservicedata_user:W4elQKNTpiMRhKkTprlLnzaJpnflXMul@dpg-cm4mr7mn7f5s73c0iudg-a.oregon-postgres.render.com/taxiservicedata"
 
   const app = express();
 
   app.use(cors());
 
   app.use(postgraphile(url,
-    'user_schema', {
+    'public', {
       watchPg: true,
       graphiql: true,
       enhanceGraphiql: true,
       graphqlRoute: '/graphql',
       graphiqlRoute: '/graphiql',
-      jwtPgTypeIdentifier: "user_schema.jwt_token",
+      jwtPgTypeIdentifier: "public.jwt_token",
       jwtSecret: process.env.JWT_SECRET
     }))
 

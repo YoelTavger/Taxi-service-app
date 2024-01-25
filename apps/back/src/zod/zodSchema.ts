@@ -28,6 +28,9 @@ export const SignInSchema = z.object({
   user_name: z.string(),
   password: z.string(),
 });
+
+export const userLocationSchema = z.object({ x: z.number(), y: z.number() });
+
 const VALUES = ['available', 'busy'] as const;
 export const availabilitySchema = z.enum(VALUES);
 
